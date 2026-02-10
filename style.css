@@ -1,0 +1,329 @@
+:root {
+    /* Warm Charcoal & Teal Palette */
+    --bg-gradient: linear-gradient(135deg, #121212 0%, #1c1c1c 100%);
+    --card-bg: #1E1E1E;
+    --card-border: rgba(255, 255, 255, 0.05);
+    /* Softer border */
+    --text-primary: #F3F4F6;
+    /* Off-white */
+    --text-secondary: #9ca3af;
+    /* Cool grey */
+    --accent: #2dd4bf;
+    /* Soft Teal */
+    --accent-glow: rgba(45, 212, 191, 0.3);
+    /* Reduced glow opacity */
+    --danger: #fb7185;
+    /* Soft Coral */
+    --font-main: 'Outfit', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-main);
+    background: var(--bg-gradient);
+    color: var(--text-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.app-container {
+    text-align: center;
+    background: var(--card-bg);
+    /* Reduced glassmorphism for a more solid, calm feel */
+    padding: 4rem 3rem;
+    border-radius: 32px;
+    border: 1px solid var(--card-border);
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+    width: 90%;
+    max-width: 500px;
+    animation: fadeIn 0.8s ease-out;
+}
+
+header {
+    margin-bottom: 3rem;
+}
+
+h1 {
+    font-weight: 300;
+    /* Slightly bolder than 200 */
+    font-size: 3rem;
+    letter-spacing: 0.15em;
+    color: var(--text-primary);
+    text-shadow: none;
+    /* Removed text shadow for cleanliness */
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+/* Timer Display */
+.timer-display {
+    position: relative;
+    width: 320px;
+    height: 320px;
+    margin: 0 auto 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.progress-ring {
+    transform: rotate(-90deg);
+    filter: drop_shadow(0 0 8px var(--accent-glow));
+    /* Reduced drop shadow */
+}
+
+.progress-ring__circle-bg {
+    stroke: rgba(255, 255, 255, 0.03);
+    /* Fainter track */
+}
+
+.progress-ring__circle {
+    stroke-dasharray: 879;
+    /* 2 * PI * 140 */
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 0.5s linear, stroke 0.3s;
+    stroke-linecap: round;
+    stroke: var(--accent);
+}
+
+.time-text {
+    position: absolute;
+    font-size: 6rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-shadow: none;
+    /* Removed strong shadow */
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -2px;
+}
+
+/* Controls */
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 16px 36px;
+    border-radius: 16px;
+    font-family: var(--font-main);
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    letter-spacing: 0.05em;
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.btn.primary {
+    background: var(--accent);
+    color: #121212;
+    /* Dark text on teal for contrast */
+    box-shadow: 0 4px 12px var(--accent-glow);
+    /* Subtle shadow */
+}
+
+.btn.primary:hover {
+    background-color: #5eead4;
+    /* Lighter teal */
+    box-shadow: 0 6px 16px var(--accent-glow);
+    transform: translateY(-1px);
+}
+
+.btn.secondary {
+    background: transparent;
+    border: 1px solid var(--text-secondary);
+    color: var(--text-secondary);
+}
+
+.btn.secondary:hover {
+    border-color: var(--text-primary);
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.03);
+    transform: translateY(-2px);
+}
+
+.btn.tertiary {
+    background: transparent;
+    color: var(--accent);
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 600;
+    border: 1px solid var(--accent);
+    border-radius: 12px;
+}
+
+.btn.tertiary:hover {
+    background: rgba(99, 102, 241, 0.1);
+}
+
+/* Quote Display */
+.quote-container {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    min-height: 3rem;
+    /* Prevent layout jump */
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.quote-container.hidden {
+    opacity: 0;
+    pointer-events: none;
+    /* Make it unclickable when hidden */
+}
+
+.quote-text {
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--accent);
+    font-style: italic;
+    line-height: 1.4;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    /* Improve readability on dark bg */
+}
+
+/* Custom Input */
+.custom-input {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 2.5rem;
+}
+
+.custom-input label {
+    display: block;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.input-group {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    align-items: center;
+}
+
+input[type="number"] {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+    padding: 12px 16px;
+    border-radius: 12px;
+    width: 100px;
+    text-align: center;
+    font-family: var(--font-main);
+    font-size: 1.2rem;
+    outline: none;
+    transition: all 0.3s;
+}
+
+input[type="number"]:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+/* Input Validation Animation */
+.input-error {
+    border-color: var(--danger) !important;
+    color: var(--danger);
+    animation: shake 0.5s cubic-bezier(.36, .07, .19, .97) both;
+}
+
+@keyframes shake {
+
+    10%,
+    90% {
+        transform: translate3d(-1px, 0, 0);
+    }
+
+    20%,
+    80% {
+        transform: translate3d(2px, 0, 0);
+    }
+
+    30%,
+    50%,
+    70% {
+        transform: translate3d(-4px, 0, 0);
+    }
+
+    40%,
+    60% {
+        transform: translate3d(4px, 0, 0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@media (max-width: 480px) {
+    .app-container {
+        width: 100%;
+        height: 100vh;
+        border-radius: 0;
+        border: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .progress-ring {
+        width: 280px;
+        height: 280px;
+    }
+
+    .progress-ring__circle,
+    .progress-ring__circle-bg {
+        r: 130;
+        cx: 140;
+        cy: 140;
+    }
+
+    .progress-ring__circle {
+        stroke-dasharray: 816;
+        /* 2 * PI * 130 */
+    }
+
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    .time-text {
+        font-size: 5rem;
+    }
+}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focus | Calm Pomodoro</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <header>
+            <h1>Focus</h1>
+            <p class="subtitle">Stay in the flow</p>
+        </header>
+
+        <main>
+            <div class="timer-display">
+                <svg class="progress-ring" width="300" height="300">
+                    <circle class="progress-ring__circle-bg" stroke="#2d2d2d" stroke-width="8" fill="transparent"
+                        r="140" cx="150" cy="150" />
+                    <circle class="progress-ring__circle" stroke="#a5b4fc" stroke-width="8" fill="transparent" r="140"
+                        cx="150" cy="150" />
+                </svg>
+                <div class="time-text" id="time-display">25:00</div>
+            </div>
+
+            <div class="controls">
+                <button id="start-pause-btn" class="btn primary" aria-label="Start Timer">
+                    <span class="icon">▶</span> Start
+                </button>
+                <button id="reset-btn" class="btn secondary" aria-label="Reset Timer">
+                    <span class="icon">↺</span> Reset
+                </button>
+            </div>
+
+            <div id="quote-container" class="quote-container hidden">
+                <p id="quote-text" class="quote-text"></p>
+            </div>
+
+            <div class="custom-input">
+                <label for="custom-minutes">Set Custom Time (min)</label>
+                <div class="input-group">
+                    <input type="number" id="custom-minutes" placeholder="25" min="1" max="120">
+                    <button id="set-time-btn" class="btn tertiary">Set</button>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
