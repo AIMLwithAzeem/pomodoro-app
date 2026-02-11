@@ -162,6 +162,7 @@ function completeTimer() {
     startPauseBtn.innerHTML = '<span class="icon">▶</span> Restart';
     playCompletionSound();
     showRandomQuote();
+    sendToN8N(); // Trigger webhook
 }
 
 function showRandomQuote() {
@@ -170,6 +171,34 @@ function showRandomQuote() {
         quoteText.textContent = `"${quotes[randomIndex].text}"`;
         quoteContainer.classList.remove('hidden');
     }
+}
+
+function sendToN8N() {
+    const webhookUrl = 'https://unsmooth-sulkily-hermila.ngrok-free.dev/webhook/pomodro';
+    const data = {
+        'user': 'Azeem',
+        'app': 'Dental Pomodoro',
+        'action': 'Session Completed',
+        'time': new Date().toLocaleString()
+    };
+
+    fetch(webhookUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => {
+            if (response.ok) {
+                console.log('Successfully sent to N8N');
+            } else {
+                console.error('Failed to send to N8N:', response.statusText);
+            }
+        })
+        .catch(error => {
+            console.error('Error sending to N8N:', error);
+        });
 }
 
 function hideQuote() {
