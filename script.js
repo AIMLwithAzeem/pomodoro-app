@@ -174,7 +174,7 @@ function showRandomQuote() {
 }
 
 function sendToN8N() {
-    const webhookUrl = 'https://unsmooth-sulkily-hermila.ngrok-free.dev/webhook/pomodro';
+    const webhookUrl = 'https://unsmooth-sulkily-hermila.ngrok-free.dev/webhook-test/pomodro';
     const data = {
         'user': 'Azeem',
         'app': 'Dental Pomodoro',
