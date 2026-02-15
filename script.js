@@ -175,11 +175,16 @@ function showRandomQuote() {
 
 function sendToN8N() {
     const webhookUrl = 'https://unsmooth-sulkily-hermila.ngrok-free.dev/webhook-test/pomodro';
+
+    // Calculate duration in minutes from totalTime (which is in seconds)
+    const sessionDuration = Math.floor(totalTime / 60);
+
     const data = {
         'user': 'Azeem',
         'app': 'Dental Pomodoro',
         'action': 'Session Completed',
-        'time': new Date().toLocaleString()
+        'time': new Date().toLocaleString(),
+        'duration_minutes': sessionDuration
     };
 
     fetch(webhookUrl, {
@@ -192,6 +197,7 @@ function sendToN8N() {
         .then(response => {
             if (response.ok) {
                 console.log('Successfully sent to N8N');
+                showLogSuccess();
             } else {
                 console.error('Failed to send to N8N:', response.statusText);
             }
@@ -199,6 +205,29 @@ function sendToN8N() {
         .catch(error => {
             console.error('Error sending to N8N:', error);
         });
+}
+
+function showLogSuccess() {
+    // save original text to restore later
+    const originalText = quoteText.textContent;
+
+    // Show success message
+    quoteText.textContent = "Log Sync Complete ✅";
+    quoteText.style.color = "var(--accent)";
+    quoteContainer.classList.remove('hidden');
+
+    // Hide after 3 seconds and restore quote or hide
+    setTimeout(() => {
+        if (quoteText.textContent === "Log Sync Complete ✅") {
+            // Restore original quote if it was there, or hide
+            if (originalText) {
+                quoteText.textContent = originalText;
+                // Keep visible if there was a quote
+            } else {
+                quoteContainer.classList.add('hidden');
+            }
+        }
+    }, 3000);
 }
 
 function hideQuote() {
