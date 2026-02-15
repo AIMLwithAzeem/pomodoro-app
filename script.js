@@ -174,7 +174,7 @@ function showRandomQuote() {
 }
 
 function sendToN8N() {
-    const webhookUrl = 'https://unsmooth-sulkily-hermila.ngrok-free.dev/webhook-test/pomodro';
+    const webhookUrl = 'https://unsmooth-sulkily-hermila.ngrok-free.dev/webhook/pomodro';
 
     // Calculate duration in minutes from totalTime (which is in seconds)
     const sessionDuration = Math.floor(totalTime / 60);
@@ -196,14 +196,11 @@ function sendToN8N() {
     })
         .then(response => {
             if (response.ok) {
-                console.log('Successfully sent to N8N');
                 showLogSuccess();
-            } else {
-                console.error('Failed to send to N8N:', response.statusText);
             }
         })
         .catch(error => {
-            console.error('Error sending to N8N:', error);
+            // Silent failure in production or minimal error handling
         });
 }
 
